@@ -14,7 +14,7 @@
       <label for="model" class="col-md-4 form-control-label">Model</label>
 
       <div class="col-md-6">
-        <input id="model" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="model" value="{{ $car['model'] }}">
+        <input id="model" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="model" value="{{ old('model', $car['model']) }}">
         @if ($errors->has('model'))
           <div class="form-control-feedback">{{ $errors->first('model') }}</div>
         @endif
@@ -25,7 +25,7 @@
       <label for="registration_number" class="col-md-4 form-control-label">Registration number</label>
 
       <div class="col-md-6">
-        <input id="registration_number" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="registration_number" value="{{ $car['registration_number'] }}">
+        <input id="registration_number" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="registration_number" value="{{ old('registration_number', $car['registration_number']) }}">
         @if ($errors->has('registration_number'))
           <div class="form-control-feedback">{{ $errors->first('registration_number') }}</div>
         @endif
@@ -36,7 +36,7 @@
       <label for="year" class="col-md-4 form-control-label">Year</label>
 
       <div class="col-md-6">
-        <input id="year" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="year" value="{{ $car['year'] }}">
+        <input id="year" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="year" value="{{ old('year', $car['year']) }}">
         @if ($errors->has('year'))
           <div class="form-control-feedback">{{ $errors->first('year') }}</div>
         @endif
@@ -47,7 +47,7 @@
       <label for="color" class="col-md-4 form-control-label">Color</label>
 
       <div class="col-md-6">
-        <input id="color" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="color" value="{{ $car['color'] }}">
+        <input id="color" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="color" value="{{ old('color', $car['color']) }}">
         @if ($errors->has('color'))
           <div class="form-control-feedback">{{ $errors->first('color') }}</div>
         @endif
@@ -58,7 +58,7 @@
       <label for="price" class="col-md-4 form-control-label">Price</label>
 
       <div class="col-md-6">
-        <input id="price" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="price" value="{{ $car['price'] }}">
+        <input id="price" type="text" class="form-control {{ $errors->has('model') ? ' form-control-danger' : '' }}" name="price" value="{{ old('price', $car['price']) }}">
         @if ($errors->has('price'))
           <div class="form-control-feedback">{{ $errors->first('price') }}</div>
         @endif
@@ -67,7 +67,7 @@
 
     <div class="form-group">
       <div class="col-md-8 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">Change</button>
+        <button type="submit" class="btn btn-primary">Save</button>
       </div>
     </div>
   </form>

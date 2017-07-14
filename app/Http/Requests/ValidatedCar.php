@@ -28,7 +28,7 @@ class ValidatedCar extends FormRequest
             'registration_number' => 'bail|required|alpha_num|size:6',
             'year' => 'bail|required|integer|between:1000,' . date('Y'),
             'color' => 'bail|required|alpha|max:255',
-            'price' => 'bail|required|integer|min:0',
+            'price' => 'bail|required|numeric|min:0',
         ];
     }
 }
