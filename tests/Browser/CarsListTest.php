@@ -37,7 +37,7 @@ class CarsListTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/cars')
                 ->assertSee('Mercedes C-Classe')
-                
+
                 ->assertDontSee('MB1234')
                 ->assertDontSee('2012')
 
