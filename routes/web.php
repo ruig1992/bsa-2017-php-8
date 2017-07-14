@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('cars', 'CarController');
+Route::resource('cars', 'CarController', ['except' => ['destroy']]);

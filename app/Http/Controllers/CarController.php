@@ -68,7 +68,7 @@ class CarController extends Controller
         $car = new Car($data);
         $this->carsRepository->store($car);
 
-        $updatedCars = $this->carsRepository->getAll($car);
+        $updatedCars = $this->carsRepository->getAll();
 
         return view('cars.index', ['cars' => $updatedCars->toArray()]);
     }
@@ -90,7 +90,7 @@ class CarController extends Controller
                 404
             );
         }
-        return view('cars.show', ['car' => $car]);
+        return view('cars.show', ['car' => $car->toArray()]);
     }
 
     /**
@@ -99,18 +99,27 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        $car = $this->carsRepository->getById($id);
+
+        if ($car === null) {
+            return response()->view(
+                'errors.404',
+                ['message' => "The car with ID #$id not found"],
+                404
+            );
+        }
+        return view('cars.edit', ['car' => $car->toArray()]);
     }
 
     /**
      * Update the specified car in the repository
      *
-     * @param  Request $request
+     * @param  ValidatedCar $request
      * @return JsonResponse
      */
-    public function update(Request $request, int $id): JsonResponse
+    public function update(ValidatedCar $request, int $id)
     {
         $data = $request->only([
             'model',
@@ -122,33 +131,16 @@ class CarController extends Controller
 
         $car = $this->carsRepository->getById($id);
         if ($car === null) {
-            return response()->json([
-                'message' => "The car with ID #$id not found",
-            ], 404);
+            return response()->view(
+                'errors.404',
+                ['message' => "The car with ID #$id not found"],
+                404
+            );
         }
 
         $car->fromArray($data);
-        $data = $this->carsRepository->update($car);
+        $car = $this->carsRepository->update($car);
 
-        return response()->json($data);
-    }
-
-    /**
-     * Remove the specified car from the repository
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function destroy(int $id): Response
-    {
-        $oldCount = count($this->carsRepository->getAll());
-        $newCount = count($this->carsRepository->delete($id));
-
-        if ($newCount === $oldCount) {
-            return response()->json([
-                'message' => "The car with ID #$id doesn't exist",
-            ], 404);
-        }
-        return response('Ok', 200);
+        return view('cars.show', ['car' => $car->toArray()]);
     }
 }
