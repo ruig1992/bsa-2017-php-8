@@ -59,7 +59,6 @@ class CarController extends Controller
         $storeData = $request->only([
             'model',
             'year',
-            'mileage',
             'registration_number',
             'color',
             'price',
@@ -78,16 +77,14 @@ class CarController extends Controller
      */
     public function show(int $id)
     {
-        return view('cars.show');
-
         $car = $this->carsRepository->getById($id);
 
-        if ($car === null) {
+        /*if ($car === null) {
             return response()->json([
                 'message' => "The car with ID #$id not found",
             ], 404);
-        }
-        return response()->json($car);
+        }*/
+        return view('cars.show', ['car' => $car]);
     }
 
     /**

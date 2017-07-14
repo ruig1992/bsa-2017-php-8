@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Cars list')
+
 @section('content')
   @empty($cars)
     <p>No cars</p>
