@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+use App\Http\Requests\ValidatedCar;
+
 use App\Entities\Car;
 use App\Repositories\Contracts\CarRepositoryInterface;
 
@@ -35,13 +37,13 @@ class CarController extends Controller
     {
         $cars = $this->carsRepository->getAll();
 
-        return view('cars.index', ['cars' => $cars]);
+        return view('cars.index', ['cars' => $cars->toArray()]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -51,22 +53,24 @@ class CarController extends Controller
     /**
      * Store a newly created car in the repository
      *
-     * @param  Request $request
-     * @return JsonResponse
+     * @param  ValidatedCar $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(Request $request): JsonResponse
+    public function store(ValidatedCar $request)
     {
-        $storeData = $request->only([
+        $data = $request->only([
             'model',
-            'year',
             'registration_number',
+            'year',
             'color',
             'price',
         ]);
-        $car = new Car($storeData);
-        $newData = $this->carsRepository->store($car);
+        $car = new Car($data);
+        $this->carsRepository->store($car);
 
-        return response()->json($newData);
+        $updatedCars = $this->carsRepository->getAll($car);
+
+        return view('cars.index', ['cars' => $updatedCars->toArray()]);
     }
 
     /**
@@ -79,11 +83,13 @@ class CarController extends Controller
     {
         $car = $this->carsRepository->getById($id);
 
-        /*if ($car === null) {
-            return response()->json([
-                'message' => "The car with ID #$id not found",
-            ], 404);
-        }*/
+        if ($car === null) {
+            return response()->view(
+                'errors.404',
+                ['message' => "The car with ID #$id not found"],
+                404
+            );
+        }
         return view('cars.show', ['car' => $car]);
     }
 
@@ -106,11 +112,10 @@ class CarController extends Controller
      */
     public function update(Request $request, int $id): JsonResponse
     {
-        $storeData = $request->only([
+        $data = $request->only([
             'model',
-            'year',
-            'mileage',
             'registration_number',
+            'year',
             'color',
             'price',
         ]);
@@ -122,7 +127,7 @@ class CarController extends Controller
             ], 404);
         }
 
-        $car->fromArray($storeData);
+        $car->fromArray($data);
         $data = $this->carsRepository->update($car);
 
         return response()->json($data);

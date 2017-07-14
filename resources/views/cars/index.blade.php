@@ -11,12 +11,12 @@
   @foreach ($cars as $car)
     <li>
       <p>
-        <a href="{{ route('cars.show', ['id' => $car->getId()]) }}">
-          {{ $car->getModel() }}
+        <a href="{{ route('cars.show', ['id' => $car['id']]) }}">
+          {{ $car['model'] }}
         </a>
       </p>
-      <p>Color: {{ $car->getColor() }}</p>
-      <p>Price: {{ $car->getPrice() }}</p>
+      <p>Color: {{ $car['color'] }}</p>
+      <p>Price: {{ $car['price'] }}</p>
     </li>
   @endforeach
   </ul>
