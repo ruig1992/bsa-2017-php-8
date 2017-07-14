@@ -30,8 +30,10 @@ class CarController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index()
     {
+        return view('cars.index');
+
         $fields = [
             'id',
             'model',
@@ -45,6 +47,16 @@ class CarController extends Controller
             $data[] = array_only($car->toArray(), $fields);
         }
         return response()->json($data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('cars.create');
     }
 
     /**
@@ -75,8 +87,10 @@ class CarController extends Controller
      * @param int $id
      * @return JsonResponse
      */
-    public function show(int $id): JsonResponse
+    public function show(int $id)
     {
+        return view('cars.show');
+
         $car = $this->carsRepository->getById($id);
 
         if ($car === null) {
@@ -85,6 +99,17 @@ class CarController extends Controller
             ], 404);
         }
         return response()->json($car);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**

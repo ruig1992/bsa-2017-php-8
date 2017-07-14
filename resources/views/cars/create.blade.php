@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-  <p>Main page</p>
+  <p>Car create page</p>
 @endsection
