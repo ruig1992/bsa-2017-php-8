@@ -101,7 +101,10 @@ class EditCarTest extends DuskTestCase
                 ->value('input[name=color]', 'colorValue')
                 ->value('input[name=price]', '9999')
                 ->press('Save')
-                ->assertSeeLink('model_value')
+                ->assertPathIs('/cars/1')
+                ->assertSee('model_value')
+                ->assertSee('123456')
+                ->assertSee('1500')
                 ->assertSee('colorValue')
                 ->assertSee('9999');
         });

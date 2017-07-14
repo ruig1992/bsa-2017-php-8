@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Entities\Car;
 use App\Repositories\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -72,18 +73,19 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function addItem($entity) : Collection
+    public function addItem($entity) : Car
     {
-        $entity->setId($this->getNextIndex());
+        $id = $this->getNextIndex();
+        $entity->setId($id);
         self::$itemsCollection = self::$itemsCollection->push($entity);
 
-        return $this->getAll();
+        return $this->getById($id);
     }
 
     /**
      * @inheritdoc
      */
-    public function update($entity) : Collection
+    public function update($entity) : Car
     {
         $id = $entity->getId();
 
@@ -98,13 +100,13 @@ abstract class AbstractRepository implements RepositoryInterface
         $this->delete($id);
         self::$itemsCollection = self::$itemsCollection->push($entity);
 
-        return $this->getAll();
+        return $this->getById($id);
     }
 
     /**
      * @inheritdoc
      */
-    public function store($entity) : Collection
+    public function store($entity) : Car
     {
         try {
             return $this->update($entity);

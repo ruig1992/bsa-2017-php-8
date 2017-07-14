@@ -31,7 +31,7 @@ interface RepositoryInterface
      * @param mixed $entity A new item data.
      * @return Collection An updated items array.
      */
-    public function addItem($entity) : Collection;
+    public function addItem($entity);
 
     /**
      * Updates an entity in collection.
@@ -40,7 +40,7 @@ interface RepositoryInterface
      * @return Collection An updated collection
      * @throws NotFoundException
      */
-    public function update($entity) : Collection;
+    public function update($entity);
 
     /**
      * Updates an entity in the collection if exists. Adds if no.
@@ -48,7 +48,7 @@ interface RepositoryInterface
      * @param mixed $entity
      * @return Collection
      */
-    public function store($entity) : Collection;
+    public function store($entity);
 
     /**
      * Removes an item by id.
