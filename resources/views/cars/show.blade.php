@@ -3,17 +3,13 @@
 @section('title', $car['model'])
 
 @section('content')
-  @empty($car)
-    <p>No car</p>
-  @endempty
+  <article>
+    <header class="mb-4">
+      <h1 class="h2">
+        <i class="fa fa-car mr-2" aria-hidden="true"></i> Car Info</h1>
+    </header>
 
-  <h2>{{ $car['model'] }}</h2>
+    @include('cars.car-item', ['vMode' => 'show'])
+  </article>
 
-  <p>Year: {{ $car['year'] }}</p>
-  <p>Registration number: {{ $car['registration_number'] }}</p>
-  <p>Color: {{ $car['color'] }}</p>
-  <p>Price: {{ $car['price'] }}</p>
-
-  <a href="{{ route('cars.edit', ['id' => $car['id']]) }}" class="btn btn-success edit-button">Edit</a>
-  <a href="{{ route('cars.index') }}" class="btn btn-danger delete-button">Delete</a>
 @endsection

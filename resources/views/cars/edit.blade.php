@@ -5,7 +5,7 @@
 @section('content')
 <section>
   <h3 class="panel-title">Edit the car #{{ $car['id'] }}</h3>
-  <form method="POST" action="{{ route('cars.update', ['id' => $car['id']]) }}">
+  <form id="form-car-data" method="POST" action="{{ route('cars.update', ['id' => $car['id']]) }}">
     {{ csrf_field() }}
 
     <input name="_method" type="hidden" value="PUT">
@@ -67,7 +67,8 @@
 
     <div class="form-group">
       <div class="col-md-8 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-floppy-o fa-lg mr-1" aria-hidden="true"></i> Save</button>
       </div>
     </div>
   </form>

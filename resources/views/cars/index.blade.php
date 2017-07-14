@@ -3,21 +3,27 @@
 @section('title', 'Cars list')
 
 @section('content')
-  @empty($cars)
-    <p>No cars</p>
-  @endempty
+  <section>
+    <header class="mb-4">
+      <h1 class="h2">
+        <i class="fa fa-list-alt mr-2" aria-hidden="true"></i> Cars List</h1>
+    </header>
 
-  <ul>
-  @foreach ($cars as $car)
-    <li>
-      <p>
-        <a href="{{ route('cars.show', ['id' => $car['id']]) }}">
-          {{ $car['model'] }}
-        </a>
-      </p>
-      <p>Color: {{ $car['color'] }}</p>
-      <p>Price: {{ $car['price'] }}</p>
-    </li>
-  @endforeach
-  </ul>
+    @if (count($cars) === 0)
+      @component('components.alert')
+        @slot('type') warning @endslot
+        No cars... Unfortunately, you will have to walk. :-)
+      @endcomponent
+    @else
+
+      <div class="row">
+        @foreach ($cars as $car)
+          <div class="col-12 col-md-6 col-lg-4 p-3">
+            @include('cars.car-item', ['vMode' => 'index'])
+          </div>
+        @endforeach
+      </div>
+    @endif
+
+  </section>
 @endsection

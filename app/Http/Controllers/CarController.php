@@ -86,7 +86,7 @@ class CarController extends Controller
         if ($car === null) {
             return response()->view(
                 'errors.404',
-                ['message' => "The car with ID #$id not found"],
+                ['message' => "The car #$id not found. But, don't worry - there are other ones! :-)"],
                 404
             );
         }
