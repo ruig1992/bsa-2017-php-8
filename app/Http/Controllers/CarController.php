@@ -27,26 +27,15 @@ class CarController extends Controller
 
     /**
      * Get and show the list of all cars with certain data fields
+     * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('cars.index');
+        $cars = $this->carsRepository->getAll();
 
-        $fields = [
-            'id',
-            'model',
-            'year',
-            'color',
-            'price',
-        ];
-        $data = [];
-
-        foreach ($this->carsRepository->getAll() as $car) {
-            $data[] = array_only($car->toArray(), $fields);
-        }
-        return response()->json($data);
+        return view('cars.index', ['cars' => $cars]);
     }
 
     /**
