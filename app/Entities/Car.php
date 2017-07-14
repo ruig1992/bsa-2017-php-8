@@ -11,11 +11,11 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
     protected $id;
     protected $model;
     protected $year;
-    protected $license_number;
+    protected $registration_number;
     protected $color;
     protected $price;
 
-    protected static $fillable = ['id', 'model', 'year', 'license_number', 'color', 'price'];
+    protected static $fillable = ['id', 'model', 'year', 'registration_number', 'color', 'price'];
 
     /**
      * @return mixed
@@ -56,9 +56,9 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
     /**
      * @return mixed
      */
-    public function getLicenseNumber()
+    public function getRegistrationNumber()
     {
-        return $this->license_number;
+        return $this->registration_number;
     }
 
     /**
@@ -67,7 +67,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
      */
     public function setRegistrationNumber($license_number)
     {
-        $this->license_number = $license_number;
+        $this->registration_number = $license_number;
         return $this;
     }
 
@@ -116,7 +116,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
             'id' => $this->getId(),
             'model' => $this->getModel(),
             'year' => $this->getYear(),
-            'license_number' => $this->getLicenseNumber(),
+            'registration_number' => $this->getRegistrationNumber(),
             'color' => $this->getColor(),
             'price' => $this->getPrice()
         ];
