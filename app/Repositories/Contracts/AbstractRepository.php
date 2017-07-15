@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Contracts;
 
-use App\Entities\Car;
+use App\Entities\Contracts\Vehicle;
 use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Exceptions\NotFoundException;
 
@@ -17,7 +17,7 @@ abstract class AbstractRepository implements RepositoryInterface
     protected static $itemsData;
 
     /**
-     * @var Collection Wrapped data to handy work with.
+     * @var \Illuminate\Database\Eloquent\Collection Wrapped data to handy work with.
      */
     protected static $itemsCollection = null;
 
@@ -54,9 +54,12 @@ abstract class AbstractRepository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * Returns a vehicle by id.
+     *
+     * @param  int $id
+     * @return Vehicle|null
      */
-    public function getById(int $id): ?Car
+    public function getById(int $id): ?Vehicle
     {
         $item = self::$itemsCollection->filter(function ($entity) use ($id) {
             return $entity->getId() === $id;
@@ -70,9 +73,12 @@ abstract class AbstractRepository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * Adds a vehicle.
+     *
+     * @param  Vehicle $entity A new vehicle data.
+     * @return Vehicle|null
      */
-    public function addItem($entity): ?Car
+    public function addItem($entity): ?Vehicle
     {
         $id = $this->getNextIndex();
         $entity->setId($id);
@@ -82,9 +88,13 @@ abstract class AbstractRepository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * Updates a vehicle in collection.
+     *
+     * @param  Vehicle $entity Edited vehicle.
+     * @return Vehicle|null  An updated vehicle or null if it isn't exist
+     * @throws NotFoundException
      */
-    public function update($entity): ?Car
+    public function update($entity): ?Vehicle
     {
         $id = $entity->getId();
 
@@ -103,9 +113,12 @@ abstract class AbstractRepository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * Updates a vehicle in the collection if exists. Adds if no.
+     *
+     * @param  Vehicle $entity
+     * @return Vehicle|null
      */
-    public function store($entity): ?Car
+    public function store($entity): ?Vehicle
     {
         try {
             return $this->update($entity);

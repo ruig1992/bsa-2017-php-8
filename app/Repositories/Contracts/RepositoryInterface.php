@@ -18,7 +18,7 @@ interface RepositoryInterface
     /**
      * Returns an item by id.
      *
-     * @param $id
+     * @param  int $id
      * @return mixed
      */
     public function getById(int $id);
