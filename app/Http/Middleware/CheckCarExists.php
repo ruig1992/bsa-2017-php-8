@@ -41,7 +41,7 @@ class CheckCarExists
             ['id' => 'required|integer|min:1']
         );
         if ($validator->fails()) {
-            abort(404, "Invalid car id format");
+            abort(404, "Invalid car's id format");
         }
 
         $car = $this->carsRepository->getById($id);
@@ -49,6 +49,10 @@ class CheckCarExists
             abort(404, "The car #$id not found. But, there are other ones! :-)");
         }
 
+        /**
+         * In case of successful checks instantiate the car
+         * in the app for further use in the controller
+         */
         app()->instance(Car::class, $car);
 
         return $next($request);

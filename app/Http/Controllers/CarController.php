@@ -22,6 +22,10 @@ class CarController extends Controller
     public function __construct(CarRepositoryInterface $carsRepository)
     {
         $this->carsRepository = $carsRepository;
+        /**
+         * Assign the middleware for the controller's actions
+         * to check the existence of the car in the repository
+         */
         $this->middleware('car.exists')->only(['show', 'edit', 'update']);
     }
 
