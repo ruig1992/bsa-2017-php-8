@@ -11,7 +11,7 @@ use App\Repositories\Contracts\{AbstractRepository, CarRepositoryInterface};
 class CarRepository extends AbstractRepository implements CarRepositoryInterface
 {
     /**
-     * @var array
+     * @var array Raw mock cars data.
      */
     protected static $itemsData = [
         [
@@ -46,7 +46,8 @@ class CarRepository extends AbstractRepository implements CarRepositoryInterface
     ];
 
     /**
-     * Creates entity
+     * Creates the car entity.
+     *
      * @param array $data
      * @return Car
      */

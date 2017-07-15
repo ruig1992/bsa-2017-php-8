@@ -1,11 +1,13 @@
 <?php
-
 namespace App\Entities;
 
-use App\Entities\Contracts\Vehicle;
-use App\Entities\Contracts\VehicleInterface;
 use Illuminate\Contracts\Support\Arrayable;
+use App\Entities\Contracts\{Vehicle, VehicleInterface};
 
+/**
+ * Class Car
+ * @package App\Entities
+ */
 class Car extends Vehicle implements VehicleInterface, Arrayable
 {
     protected $id;
@@ -14,8 +16,17 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
     protected $registration_number;
     protected $color;
     protected $price;
-
-    protected static $fillable = ['id', 'model', 'year', 'registration_number', 'color', 'price'];
+    /**
+     * @var array
+     */
+    protected static $fillable = [
+        'id',
+        'model',
+        'year',
+        'registration_number',
+        'color',
+        'price',
+    ];
 
     /**
      * @return mixed
@@ -29,7 +40,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
      * @param mixed $model
      * @return Car
      */
-    public function setModel($model)
+    public function setModel($model): self
     {
         $this->model = $model;
         return $this;
@@ -47,7 +58,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
      * @param mixed $year
      * @return Car
      */
-    public function setYear($year)
+    public function setYear($year): self
     {
         $this->year = $year;
         return $this;
@@ -65,7 +76,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
      * @param mixed $license_number
      * @return Car
      */
-    public function setRegistrationNumber($license_number)
+    public function setRegistrationNumber($license_number): self
     {
         $this->registration_number = $license_number;
         return $this;
@@ -83,7 +94,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
      * @param mixed $color
      * @return Car
      */
-    public function setColor($color)
+    public function setColor($color): self
     {
         $this->color = $color;
         return $this;
@@ -101,7 +112,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
      * @param mixed $price
      * @return Car
      */
-    public function setPrice($price)
+    public function setPrice($price): self
     {
         $this->price = $price;
         return $this;
@@ -110,7 +121,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
     /**
      * @inheritdoc
      */
-    public function toArray() : array
+    public function toArray(): array
     {
         return [
             'id' => $this->getId(),
@@ -118,8 +129,7 @@ class Car extends Vehicle implements VehicleInterface, Arrayable
             'year' => $this->getYear(),
             'registration_number' => $this->getRegistrationNumber(),
             'color' => $this->getColor(),
-            'price' => $this->getPrice()
+            'price' => $this->getPrice(),
         ];
     }
-
 }

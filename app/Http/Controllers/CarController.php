@@ -3,15 +3,16 @@ namespace App\Http\Controllers;
 
 use App\Entities\Car;
 use App\Http\Requests\ValidatedCar;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Repositories\Contracts\CarRepositoryInterface;
 
+/**
+ * Class CarController
+ * @package App\Http\Controllers
+ */
 class CarController extends Controller
 {
     /**
-     * Cars repository
-     * @var CarRepositoryInterface
+     * @var CarRepositoryInterface The cars repository instance
      */
     protected $carsRepository;
 
@@ -24,10 +25,9 @@ class CarController extends Controller
     }
 
     /**
-     * Get and show the list of all cars with certain data fields
-     * Display a listing of the resource.
+     * Gets and displays the list of all cars from the repository.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index()
     {
@@ -37,9 +37,9 @@ class CarController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Shows the form for creating a new car.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function create()
     {
@@ -47,10 +47,12 @@ class CarController extends Controller
     }
 
     /**
-     * Store a newly created car in the repository
+     * Stores a newly created car in the repository.
      *
-     * @param  ValidatedCar $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Http\Requests\ValidatedCar $request
+     *    Contains the rules for validating the car data from request
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function store(ValidatedCar $request)
     {
@@ -61,19 +63,23 @@ class CarController extends Controller
             'color',
             'price',
         ]);
+
         $car = new Car($data);
         $this->carsRepository->store($car);
-
         $updatedCars = $this->carsRepository->getAll();
 
         return view('cars.index', ['cars' => $updatedCars->toArray()]);
     }
 
     /**
-     * Get and show the detailed information about the car by its id
+     * Gets and displays the full information about the car by its id.
+     *
+     * If the car does not exist, returns the response
+     * with error code 404 (Not Found).
      *
      * @param int $id
-     * @return JsonResponse
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|
+     *         \Illuminate\Http\Response
      */
     public function show(int $id)
     {
@@ -88,10 +94,14 @@ class CarController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Shows the form for editing the specified car by its id.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * If the car does not exist, returns the response
+     * with error code 404 (Not Found).
+     *
+     * @param int $id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|
+     *         \Illuminate\Http\Response
      */
     public function edit(int $id)
     {
@@ -106,10 +116,17 @@ class CarController extends Controller
     }
 
     /**
-     * Update the specified car in the repository
+     * Updates the specified car by its id in the repository.
      *
-     * @param  ValidatedCar $request
-     * @return JsonResponse
+     * If the car does not exist, returns the response
+     * with error code 404 (Not Found).
+     *
+     * @param \App\Http\Requests\ValidatedCar $request
+     *    Contains the rules for validating the car data from request
+     * @param int $id
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|
+     *         \Illuminate\Http\Response
      */
     public function update(ValidatedCar $request, int $id)
     {

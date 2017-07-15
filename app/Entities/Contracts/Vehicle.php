@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Entities\Contracts;
 
-use App\Entities\Contracts\VehicleInterface;
 use Illuminate\Contracts\Support\Arrayable;
+use App\Entities\Contracts\VehicleInterface;
 
 /**
  * Class Vehicle
@@ -33,7 +32,7 @@ abstract class Vehicle implements VehicleInterface, Arrayable
      * @param array $data
      * @return \App\Entities\Contracts\VehicleInterface
      */
-    public function fromArray(array $data) : VehicleInterface
+    public function fromArray(array $data): VehicleInterface
     {
         if (empty(static::$fillable)) {
             return $this;
@@ -55,12 +54,12 @@ abstract class Vehicle implements VehicleInterface, Arrayable
      *
      * @return array
      */
-    abstract public function toArray() : array;
+    abstract public function toArray(): array;
 
     /**
      * @return int
      */
-    public function getId() : int
+    public function getId(): int
     {
         return (int) $this->id;
     }
@@ -69,7 +68,7 @@ abstract class Vehicle implements VehicleInterface, Arrayable
      * @param int $id
      * @return Vehicle
      */
-    public function setId(int $id) : self
+    public function setId(int $id): self
     {
         $this->id = $id;
 

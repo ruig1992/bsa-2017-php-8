@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entities\Contracts;
 
 /**
@@ -14,12 +13,12 @@ interface VehicleInterface
      * @param array $data
      * @return VehicleInterface
      */
-    public function fromArray(array $data) : VehicleInterface;
+    public function fromArray(array $data): VehicleInterface;
 
     /**
      * Returns an array with instance fields.
      *
      * @return array
      */
-    public function toArray() : array;
+    public function toArray(): array;
 }

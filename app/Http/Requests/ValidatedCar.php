@@ -3,10 +3,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class ValidatedCar
+ * @package App\Http\Requests
+ */
 class ValidatedCar extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determines if the user is authorized to make this request.
      *
      * @return bool
      */
@@ -16,7 +20,7 @@ class ValidatedCar extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Gets the validation rules that apply to the request.
      *
      * @return array
      */
