@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('title', $car['model'])
+@section('meta-description', 'Full information about the car - ' . $car['model'])
 
 @section('content')
   <article>
-    <header class="mb-4">
-      <h1 class="h2">
-        <i class="fa fa-car mr-2" aria-hidden="true"></i> Car Info</h1>
-    </header>
+    @component('components.page-header')
+      @slot('header') Car Info @endslot
+      @slot('icon') fa-car @endslot
+    @endcomponent
 
-    @include('cars.car-item', ['vMode' => 'show'])
+    @include('cars.partials.car-item', ['vMode' => 'show'])
   </article>
 
 @endsection

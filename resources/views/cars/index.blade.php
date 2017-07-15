@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Cars list')
+@section('meta-description', 'View a list of all available cars')
 
 @section('content')
   <section>
-    <header class="mb-4">
-      <h1 class="h2">
-        <i class="fa fa-list-alt mr-2" aria-hidden="true"></i> Cars List</h1>
-    </header>
+    @component('components.page-header')
+      @slot('header') Cars List @endslot
+      @slot('icon') fa-list-alt @endslot
+    @endcomponent
 
     @if (count($cars) === 0)
       @component('components.alert')
@@ -16,10 +17,10 @@
       @endcomponent
     @else
 
-      <div class="row">
+      <div class="row cars-cards">
         @foreach ($cars as $car)
           <div class="col-12 col-md-6 col-lg-4 p-3">
-            @include('cars.car-item', ['vMode' => 'index'])
+            @include('cars.partials.car-item', ['vMode' => 'index'])
           </div>
         @endforeach
       </div>

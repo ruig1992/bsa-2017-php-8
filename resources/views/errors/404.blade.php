@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Cars. Error 404')
+@section('title', 'Error 404')
 
 @section('content')
   @component('components.alert')

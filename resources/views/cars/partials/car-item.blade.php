@@ -13,6 +13,7 @@
 
   <div class="card-block">
     <dl class="row mb-0">
+
     @if ($vMode === 'show')
       <dt class="col-sm-5 col-md-3 car-field">Year</dt>
       <dd class="col-sm-7 col-md-9">{{ $car['year'] }}</dd>
@@ -34,9 +35,9 @@
       <a href="{{ route('cars.edit', ['id' => $car['id']]) }}"
         class="btn btn-success edit-button">
           <i class="fa fa-pencil-square-o fa-lg mr-1" aria-hidden="true"></i> Edit</a>
-      <a href="{{ route('cars.index') }}"
-        class="btn btn-danger delete-button">
-          <i class="fa fa-trash-o fa-lg mr-1"></i> Delete</a>
+
+      <a href="{{ route('cars.index') }}" class="btn btn-danger delete-button">
+        <i class="fa fa-trash-o fa-lg mr-1"></i> Delete</a>
     </div>
   @endif
 </div>
