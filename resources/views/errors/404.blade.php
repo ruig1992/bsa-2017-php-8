@@ -5,6 +5,6 @@
 @section('content')
   @component('components.alert')
     @slot('errorCode') 404 @endslot
-    {{ $message }}
+    {{ $exception->getMessage() ?: 'Page not found' }}
   @endcomponent
 @endsection

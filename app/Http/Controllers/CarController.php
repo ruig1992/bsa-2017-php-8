@@ -12,16 +12,17 @@ use App\Repositories\Contracts\CarRepositoryInterface;
 class CarController extends Controller
 {
     /**
-     * @var CarRepositoryInterface The cars repository instance
+     * @var \App\Repositories\Contracts\CarRepositoryInterface
      */
     protected $carsRepository;
 
     /**
-     * @param CarRepositoryInterface $carsRepository
+     * @param \App\Repositories\Contracts\CarRepositoryInterface $carsRepository
      */
     public function __construct(CarRepositoryInterface $carsRepository)
     {
         $this->carsRepository = $carsRepository;
+        $this->middleware('car.exists')->only(['show', 'edit', 'update']);
     }
 
     /**
@@ -74,61 +75,35 @@ class CarController extends Controller
     /**
      * Gets and displays the full information about the car by its id.
      *
-     * If the car does not exist, returns the response
-     * with error code 404 (Not Found).
-     *
-     * @param int $id
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|
-     *         \Illuminate\Http\Response
+     * @param  \App\Entities\Car $car
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function show(int $id)
+    public function show(Car $car)
     {
-        $car = $this->carsRepository->getById($id);
-
-        if ($car === null) {
-            return response()->view('errors.404', [
-                'message' => "The car #$id not found. But, there are other ones! :-)",
-            ], 404);
-        }
         return view('cars.show', ['car' => $car->toArray()]);
     }
 
     /**
      * Shows the form for editing the specified car by its id.
      *
-     * If the car does not exist, returns the response
-     * with error code 404 (Not Found).
-     *
-     * @param int $id
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|
-     *         \Illuminate\Http\Response
+     * @param  \App\Entities\Car $car
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function edit(int $id)
+    public function edit(Car $car)
     {
-        $car = $this->carsRepository->getById($id);
-
-        if ($car === null) {
-            return response()->view('errors.404', [
-                'message' => "The car #$id not found",
-            ], 404);
-        }
         return view('cars.edit', ['car' => $car->toArray()]);
     }
 
     /**
      * Updates the specified car by its id in the repository.
      *
-     * If the car does not exist, returns the response
-     * with error code 404 (Not Found).
-     *
-     * @param \App\Http\Requests\ValidatedCar $request
+     * @param  \App\Http\Requests\ValidatedCar $request
      *    Contains the rules for validating the car data from request
-     * @param int $id
+     * @param  \App\Entities\Car $car
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|
-     *         \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function update(ValidatedCar $request, int $id)
+    public function update(ValidatedCar $request, Car $car)
     {
         $data = $request->only([
             'model',
@@ -137,13 +112,6 @@ class CarController extends Controller
             'color',
             'price',
         ]);
-
-        $car = $this->carsRepository->getById($id);
-        if ($car === null) {
-            return response()->view('errors.404', [
-                'message' => "The car #$id not found",
-            ], 404);
-        }
 
         $car->fromArray($data);
         $car = $this->carsRepository->update($car);
