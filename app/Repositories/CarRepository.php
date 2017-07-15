@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Repositories;
 
 use App\Entities\Car;
-use App\Repositories\Contracts\AbstractRepository;
-use App\Repositories\Contracts\CarRepositoryInterface;
+use App\Repositories\Contracts\{AbstractRepository, CarRepositoryInterface};
 
 /**
  * Class CarRepository
@@ -44,7 +42,7 @@ class CarRepository extends AbstractRepository implements CarRepositoryInterface
             'registration_number' => 'BMW789',
             'year' => '2010',
             'price' => 60,
-        ]
+        ],
     ];
 
     /**
@@ -56,5 +54,4 @@ class CarRepository extends AbstractRepository implements CarRepositoryInterface
     {
         return new Car($data);
     }
-
 }

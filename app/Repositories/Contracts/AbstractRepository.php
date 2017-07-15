@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Repositories\Contracts;
 
 use App\Entities\Car;
-use App\Repositories\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\Collection;
+use App\Repositories\Exceptions\NotFoundException;
 
 /**
  * Class AbstractRepository
@@ -47,7 +46,7 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getAll() : Collection
+    public function getAll(): Collection
     {
         return self::$itemsCollection->sortBy(function ($entity) {
             return $entity->getId();
@@ -73,7 +72,7 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function addItem($entity) : Car
+    public function addItem($entity): Car
     {
         $id = $this->getNextIndex();
         $entity->setId($id);
@@ -85,7 +84,7 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function update($entity) : Car
+    public function update($entity): Car
     {
         $id = $entity->getId();
 
@@ -106,7 +105,7 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function store($entity) : Car
+    public function store($entity): Car
     {
         try {
             return $this->update($entity);
@@ -118,11 +117,13 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function delete(int $id) : Collection
+    public function delete(int $id): Collection
     {
-        self::$itemsCollection = self::$itemsCollection->filter(function ($entity) use ($id) {
-            return $entity->getId() !== $id;
-        });
+        self::$itemsCollection = self::$itemsCollection->filter(
+            function ($entity) use ($id) {
+                return $entity->getId() !== $id;
+            }
+        );
 
         return $this->getAll();
     }
@@ -132,7 +133,7 @@ abstract class AbstractRepository implements RepositoryInterface
      *
      * @return int
      */
-    public static function getNextIndex() : int
+    public static function getNextIndex(): int
     {
         $i = 0;
 

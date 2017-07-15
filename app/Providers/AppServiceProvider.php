@@ -1,12 +1,12 @@
 <?php
-
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Repositories\{
+    CarRepository,
+    Contracts\CarRepositoryInterface
+};
 use Laravel\Dusk\DuskServiceProvider;
-
-use App\Repositories\CarRepository;
-use App\Repositories\Contracts\CarRepositoryInterface;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,9 +15,9 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
+        // method body
     }
 
     /**
@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Registration of CarRepository
         $this->app->bind(CarRepositoryInterface::class, CarRepository::class);

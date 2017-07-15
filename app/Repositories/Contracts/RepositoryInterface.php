@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Repositories\Contracts;
 
-use App\Repositories\Exceptions\NotFoundException;
 use Illuminate\Database\Eloquent\Collection;
-
+use App\Repositories\Exceptions\NotFoundException;
 
 /**
  * Interface RepositoryInterface
@@ -15,7 +13,7 @@ interface RepositoryInterface
     /**
      * @return Collection
      */
-    public function getAll() : Collection;
+    public function getAll(): Collection;
 
     /**
      * Returns an item by id.
@@ -56,5 +54,5 @@ interface RepositoryInterface
      * @param int $id
      * @return Collection An updated collection
      */
-    public function delete(int $id) : Collection;
+    public function delete(int $id): Collection;
 }

@@ -1,14 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-
-use App\Http\Requests\ValidatedCar;
-
 use App\Entities\Car;
+use App\Http\Requests\ValidatedCar;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Repositories\Contracts\CarRepositoryInterface;
 
 class CarController extends Controller
@@ -84,11 +80,9 @@ class CarController extends Controller
         $car = $this->carsRepository->getById($id);
 
         if ($car === null) {
-            return response()->view(
-                'errors.404',
-                ['message' => "The car #$id not found. But, don't worry - there are other ones! :-)"],
-                404
-            );
+            return response()->view('errors.404', [
+                'message' => "The car #$id not found. But, there are other ones! :-)",
+            ], 404);
         }
         return view('cars.show', ['car' => $car->toArray()]);
     }
@@ -104,11 +98,9 @@ class CarController extends Controller
         $car = $this->carsRepository->getById($id);
 
         if ($car === null) {
-            return response()->view(
-                'errors.404',
-                ['message' => "The car with ID #$id not found"],
-                404
-            );
+            return response()->view('errors.404', [
+                'message' => "The car #$id not found",
+            ], 404);
         }
         return view('cars.edit', ['car' => $car->toArray()]);
     }
@@ -131,11 +123,9 @@ class CarController extends Controller
 
         $car = $this->carsRepository->getById($id);
         if ($car === null) {
-            return response()->view(
-                'errors.404',
-                ['message' => "The car with ID #$id not found"],
-                404
-            );
+            return response()->view('errors.404', [
+                'message' => "The car #$id not found",
+            ], 404);
         }
 
         $car->fromArray($data);
