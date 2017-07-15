@@ -56,7 +56,7 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getById(int $id)
+    public function getById(int $id): ?Car
     {
         $item = self::$itemsCollection->filter(function ($entity) use ($id) {
             return $entity->getId() === $id;
@@ -72,7 +72,7 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function addItem($entity): Car
+    public function addItem($entity): ?Car
     {
         $id = $this->getNextIndex();
         $entity->setId($id);
@@ -84,7 +84,7 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function update($entity): Car
+    public function update($entity): ?Car
     {
         $id = $entity->getId();
 
@@ -105,7 +105,7 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * @inheritdoc
      */
-    public function store($entity): Car
+    public function store($entity): ?Car
     {
         try {
             return $this->update($entity);
